@@ -55,6 +55,29 @@ Label: NORMAL / SUSPICIOUS
 
 Trained and evaluated on public network intrusion datasets including **CICIDS** and **NSL-KDD**, which contain labeled normal and attack traffic across multiple attack categories (DoS, DDoS, port scan, brute force, infiltration).
 
+### Data prep log
+
+- Merged CICIDS day/time CSV files in chronological order into a single file using:
+
+```bash
+python merge_to_traffic.py
+```
+
+- Output file generated locally:
+        - `traffic.csv`
+
+- Prevented pushing large merged data to GitHub by adding this to `.gitignore`:
+
+```gitignore
+traffic.csv
+```
+
+- If `traffic.csv` is ever tracked in Git, untrack it without deleting the local file:
+
+```bash
+git rm --cached traffic.csv
+```
+
 ---
 
 ## Setup
