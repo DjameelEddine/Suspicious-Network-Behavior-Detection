@@ -78,6 +78,33 @@ traffic.csv
 git rm --cached traffic.csv
 ```
 
+### Data cleaning
+
+Cleaned the merged dataset using exploratory data analysis (EDA) notebook:
+
+```bash
+jupyter notebook eda.ipynb
+```
+
+**Cleaning steps:**
+- Removed duplicate rows: **308,381 duplicates (10.89%)**
+- Removed rows with missing values: **353 rows (0.01%)**
+- **Total cleaned:** 2,522,009 rows (from 2,830,743 original)
+
+**Cleaned output:**
+- File: `clean_traffic.csv` (842 MB)
+- Rows: 2,522,009 x 79 columns
+- Ready for model training
+
+**Label distribution (after cleaning):**
+| Attack Type | Count | Percentage |
+|---|---|---|
+| BENIGN | ~2.27M | ~90% |
+| DoS Hulk | ~23K | ~0.9% |
+| PortScan | ~16K | ~0.6% |
+| DDoS | ~13K | ~0.5% |
+| Others | ~250K | ~10% (rare attack types) |
+
 ---
 
 ## Setup
@@ -118,6 +145,44 @@ scapy / pyshark           PCAP feature extraction
 pandas / numpy            data preparation
 matplotlib / seaborn      visualization
 ```
+
+---
+
+## Next Steps & Open Questions
+
+### Completed
+✅ Data merge (chronological order)  
+✅ Exploratory Data Analysis (EDA)  
+✅ Data cleaning (duplicates & missing values)  
+✅ Label distribution analysis  
+
+### In Progress / To-Do
+- [ ] Train-test split strategy:
+  - Option A: **Stratified random split** (recommended) — ensures each attack type is represented in both train and test
+  - Option B: Chronological split — train on Mon–Thu, test on Friday (requires all attack types present across days)
+  
+- [ ] Handle class imbalance:
+  - Downsample BENIGN from 2.27M to ~100k?
+  - Use class weights during training?
+  - Drop ultra-rare attack types (<50 samples)?
+  
+- [ ] Feature engineering:
+  - Correlation analysis to identify redundant features
+  - Scaling (StandardScaler, MinMaxScaler)
+  - Dimensionality reduction if needed
+
+- [ ] Model training & evaluation:
+  - Random Forest baseline
+  - XGBoost
+  - Compare metrics: accuracy, F1, ROC-AUC, confusion matrix
+  
+- [ ] Deployment/prediction pipeline
+
+### Open Questions
+- ❓ What is the optimal train-test split strategy for attack detection?
+- ❓ Should we downsample BENIGN traffic or use class weights?
+- ❓ Which feature engineering techniques improve model performance?
+- ❓ How to detect novel/zero-day attacks not seen in training?
 
 ---
 
