@@ -12,7 +12,7 @@ Use the command:
 
 1. Install streamlit first
 Use the command:
-`pip isnstall streamlit`
+`pip install streamlit`
 
 2. Run the streamlit web app
 Use the command:
